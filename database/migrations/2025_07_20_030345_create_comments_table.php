@@ -10,17 +10,16 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void {
-        Schema::create('likes', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('post_id')->constrained()->onDelete('cascade');
+            $table->text('body');
             $table->timestamps();
-
-            $table->unique(['user_id', 'post_id']);
         });
     }
 
     public function down(): void {
-        Schema::dropIfExists('likes');
+        Schema::dropIfExists('comments');
     }
 };
