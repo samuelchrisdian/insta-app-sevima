@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,19 +13,24 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        // Ambil ID dari user yang sudah di-follow oleh user yang login
         $followingIds = $user->following()->pluck('users.id');
 
-        // Ambil user lain yang belum di-follow dan bukan diri sendiri, batasi 5
         $suggestions = User::whereNotIn('id', $followingIds)
             ->where('id', '!=', $user->id)
             ->inRandomOrder()
             ->take(5)
             ->get();
 
+        $followingIds->push($user->id);
+        $posts = Post::whereIn('user_id', $followingIds)
+            ->with(['user', 'comments', 'likes']) // Eager load untuk performa
+            ->latest()
+            ->get();
+
         return view('dashboard', [
             'user' => $user,
             'suggestions' => $suggestions,
+            'posts' => $posts,
         ]);
     }
 }

@@ -3,7 +3,6 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-                <!-- Kolom Kiri: Profil & Sugesti -->
                 <div class="md:col-span-1 space-y-8">
                     <!-- Profil Pengguna -->
                     <div class="bg-white/80 dark:bg-gray-800/80 p-6 rounded-lg shadow-md backdrop-blur-sm text-center">
@@ -30,7 +29,6 @@
                         </div>
                     </div>
 
-                    <!-- Sugesti untuk Anda -->
                     <div class="bg-white/80 dark:bg-gray-800/80 p-6 rounded-lg shadow-md backdrop-blur-sm">
                         <h3 class="font-bold text-gray-900 dark:text-white mb-4">Disarankan untuk Anda</h3>
                         <div class="space-y-4">
@@ -43,14 +41,22 @@
                     </div>
                 </div>
 
-                <!-- Kolom Kanan: Feed atau Konten Lain -->
-                <div class="md:col-span-2">
-                    <div class="bg-white/80 dark:bg-gray-800/80 p-6 rounded-lg shadow-md backdrop-blur-sm">
-                        <h3 class="font-bold text-gray-900 dark:text-white mb-4">Aktivitas Terbaru</h3>
-                        <p class="text-gray-600 dark:text-gray-400">
-                            Area ini bisa digunakan untuk menampilkan feed postingan dari orang yang Anda ikuti, atau notifikasi lainnya.
+                <div class="md:col-span-2 space-y-6">
+                    @forelse ($posts as $post)
+                    <x-posts.card :post="$post" />
+                    @empty
+                    <div class="bg-white/80 dark:bg-gray-800/80 p-10 rounded-lg shadow-md backdrop-blur-sm text-center">
+                        <h3 class="font-bold text-gray-900 dark:text-white">Feed Anda Kosong</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mt-2">
+                            Buat postingan pertama Anda atau ikuti pengguna lain untuk melihat aktivitas di sini.
                         </p>
+                        <a href="{{ route('posts.create') }}" class="mt-4 inline-block">
+                            <x-primary-button>
+                                {{ __('Buat Postingan') }}
+                            </x-primary-button>
+                        </a>
                     </div>
+                    @endforelse
                 </div>
 
             </div>
