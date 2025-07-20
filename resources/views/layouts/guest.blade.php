@@ -18,7 +18,7 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gradient-main">
             <div>
                 <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-white" />
+                    <x-application-logo class="w-48 h-48 fill-current text-white" />
                 </a>
             </div>
             <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white/90 dark:bg-gray-800/90 shadow-md overflow-hidden sm:rounded-lg">
